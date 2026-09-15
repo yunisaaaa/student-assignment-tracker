@@ -1,0 +1,7 @@
+{
+  "name": "student-assignment-tracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
