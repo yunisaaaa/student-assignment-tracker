@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import AssignmentItem from '@/components/AssignmentItem.vue';
-import type { Assignment } from './AssignmentForm.vue';
+import type { Assignment } from '@/types/assignment';
 
 defineProps<{ assignments: Assignment[] }>();
 defineEmits<{ 'toggle-status': [id: string]; remove: [id: string] }>();

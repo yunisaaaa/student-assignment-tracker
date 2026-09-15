@@ -1,6 +1,6 @@
-import { ref as dbRef, onValue, push, update, remove } from 'firebase/database';
+import { ref as dbRef, onValue, get, push, update, remove } from 'firebase/database';
 import { db } from '@/firebase';
-import type { Assignment } from '@/components/AssignmentForm.vue';
+import type { Assignment } from '@/types/assignment';
 
 const ASSIGNMENTS_PATH = 'assignments';
 
@@ -8,6 +8,16 @@ export type AssignmentData = Omit<Assignment, 'id'>;
 
 function assignmentsRef() {
   return dbRef(db, ASSIGNMENTS_PATH);
+}
+
+export async function fetchAssignments() {
+  const snapshot = await get(assignmentsRef());
+  const data = snapshot.val() as Record<string, AssignmentData> | null;
+  if (!data) return [] as Assignment[];
+  return Object.entries(data).map(([key, val]) => ({
+    id: key,
+    ...val,
+  }));
 }
 
 export function listenToAssignments(callback: (assignments: Assignment[]) => void) {

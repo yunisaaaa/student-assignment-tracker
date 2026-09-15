@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { IonBadge, IonButton } from '@ionic/vue';
-import type { Assignment } from './AssignmentForm.vue';
+import type { Assignment } from '@/types/assignment';
 
 const props = defineProps<{ assignment: Assignment }>();
 defineEmits<{ 'toggle-status': [id: string]; remove: [id: string] }>();

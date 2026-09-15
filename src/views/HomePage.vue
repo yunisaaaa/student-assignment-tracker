@@ -1,11 +1,34 @@
 <template>
   <ion-page>
-    <ion-header class="app-header"><ion-toolbar><div class="brand" slot="start"><span class="brand-mark">S</span><span>Student Assignment Tracker</span></div></ion-toolbar></ion-header>
+    <ion-header class="app-header">
+      <ion-toolbar>
+        <div class="brand" slot="start">
+          <span class="brand-mark">S</span>
+          <span>Student Assignment Tracker</span>
+        </div>
+      </ion-toolbar>
+    </ion-header>
+
     <ion-content>
       <main class="page-content">
-        <section class="intro"><div class="intro__copy"><p class="eyebrow">Stay on top of your work</p><h1>Assignments</h1><p>Record each task, its deadline, and the notes you need to finish it.</p></div></section>
+        <section class="intro">
+          <div class="intro__copy">
+            <p class="eyebrow">Stay on top of your work</p>
+            <h1>Assignments</h1>
+            <p>Record each task, its deadline, and the notes you need to finish it.</p>
+          </div>
+        </section>
+
         <section class="tracker-layout">
-          <ion-card class="form-card"><ion-card-header><ion-card-title>New assignment</ion-card-title></ion-card-header><ion-card-content><AssignmentForm @save="saveAssignment" /></ion-card-content></ion-card>
+          <ion-card class="form-card">
+            <ion-card-header>
+              <ion-card-title>New assignment</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <AssignmentForm @save="saveAssignment" />
+            </ion-card-content>
+          </ion-card>
+
           <AssignmentList :assignments="assignments" @toggle-status="toggleStatus" @remove="removeAssignment" />
         </section>
       </main>
@@ -17,8 +40,9 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { toastController } from '@ionic/vue';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
-import AssignmentForm, { type Assignment } from '@/components/AssignmentForm.vue';
+import AssignmentForm from '@/components/AssignmentForm.vue';
 import AssignmentList from '@/components/AssignmentList.vue';
+import type { Assignment } from '@/types/assignment';
 import { listenToAssignments, addAssignment, toggleAssignmentStatus, deleteAssignment } from '@/services/assignmentService';
 
 const assignments = ref<Assignment[]>([]);

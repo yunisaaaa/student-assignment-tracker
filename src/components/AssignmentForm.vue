@@ -33,15 +33,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { IonButton, IonInput, IonItem, IonSelect, IonSelectOption, IonTextarea } from '@ionic/vue';
-
-export type Assignment = {
-  id: string;
-  subject: string;
-  title: string;
-  deadline: string;
-  status: 'Not started' | 'In progress' | 'Completed';
-  notes: string;
-};
+import type { Assignment } from '@/types/assignment';
 
 const emit = defineEmits<{ save: [assignment: Omit<Assignment, 'id'>] }>();
 const form = reactive<Omit<Assignment, 'id'>>({ subject: '', title: '', deadline: '', status: 'Not started', notes: '' });
