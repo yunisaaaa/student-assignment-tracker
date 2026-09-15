@@ -12,11 +12,8 @@
     <ion-content>
       <main class="page-content">
         <section class="intro">
-          <div class="intro__copy">
-            <p class="eyebrow">Stay on top of your work</p>
-            <h1>Assignments</h1>
-            <p>Record each task, its deadline, and the notes you need to finish it.</p>
-          </div>
+          <ConnectionStatus />
+          <ion-button size="small" fill="outline" @click="refresh">Refresh</ion-button>
         </section>
 
         <section class="tracker-layout">
@@ -39,9 +36,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { toastController } from '@ionic/vue';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/vue';
 import AssignmentForm from '@/components/AssignmentForm.vue';
 import AssignmentList from '@/components/AssignmentList.vue';
+import ConnectionStatus from '@/components/ConnectionStatus.vue';
 import type { Assignment } from '@/types/assignment';
 import { listenToAssignments, addAssignment, toggleAssignmentStatus, deleteAssignment } from '@/services/assignmentService';
 
@@ -57,6 +55,10 @@ onMounted(() => {
 onUnmounted(() => {
   unsubscribe?.();
 });
+
+function refresh() {
+  window.location.reload();
+}
 
 async function showToast(message: string, color: 'success' | 'danger' = 'success') {
   const toast = await toastController.create({
@@ -102,15 +104,11 @@ async function removeAssignment(id: string) {
 .brand-mark { align-items: center; background: #d9f0e1; border-radius: 9px; color: var(--tracker-green-800); display: inline-flex; font-size: 16px; height: 32px; justify-content: center; width: 32px; }
 .page-content { box-sizing: border-box; margin: 0 auto; max-width: 1100px; padding: clamp(24px, 5vw, 52px) clamp(16px, 4vw, 40px) 64px; width: 100%; }
 .intro { margin-bottom: clamp(24px, 4vw, 40px); }
-.intro { align-items: center; background: var(--tracker-green-050); border: 1px solid var(--tracker-border); border-radius: 20px; display: flex; justify-content: space-between; overflow: hidden; padding: clamp(24px, 5vw, 42px); position: relative; }
-.eyebrow { color: var(--tracker-green-700); font-size: 12px; font-weight: 700; letter-spacing: .08em; margin: 0; text-transform: uppercase; }
-.intro h1 { color: var(--tracker-green-950); font-family: var(--tracker-font-display); font-size: clamp(30px, 5vw, 42px); line-height: 1.1; margin: 8px 0; }
-.intro > p:last-child { color: var(--tracker-muted); margin: 0; }
-.intro__copy > p:last-child { color: var(--tracker-muted); margin: 0; max-width: 560px; }
+.intro { align-items: center; background: var(--tracker-green-050); border: 1px solid var(--tracker-border); border-radius: 20px; display: flex; padding: clamp(24px, 5vw, 42px); position: relative; }
 .tracker-layout { align-items: start; display: grid; gap: clamp(18px, 3vw, 32px); grid-template-columns: minmax(min(100%, 300px), 0.85fr) minmax(0, 1.5fr); }
 .form-card { margin: 0; }
 .form-card { --background: #fff; --border-radius: 16px; --box-shadow: 0 10px 30px rgba(18, 59, 42, .07); }
 .form-card ion-card-title { color: var(--tracker-green-950); font-family: var(--tracker-font-display); }
 @media (max-width: 760px) { .page-content { padding-bottom: 48px; } .tracker-layout { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 520px) { .app-header ion-toolbar { --min-height: 62px; } .intro { border-radius: 16px; } }
+@media (max-width: 520px) { .app-header ion-toolbar { --min-height: 62px; } .intro { border-radius: 16px; flex-wrap: wrap; gap: 16px; } }
 </style>
