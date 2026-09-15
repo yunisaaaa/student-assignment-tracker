@@ -1,2 +1,33 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+:root {
+	--tracker-green-950: #202a27;
+	--tracker-green-800: #356653;
+	--tracker-green-700: #4b9b72;
+	--tracker-green-100: #e4f2e9;
+	--tracker-green-050: #f2f8f4;
+	--tracker-surface: #f7f9f8;
+	--tracker-ink: #202124;
+	--tracker-muted: #65716c;
+	--tracker-border: #dce6e0;
+	--tracker-font-body: 'Nunito Sans', sans-serif;
+	--tracker-font-display: 'Manrope', sans-serif;
+	--ion-background-color: var(--tracker-surface);
+	--ion-background-color-rgb: 238, 241, 239;
+	--ion-card-background: #ffffff;
+	--ion-text-color: var(--tracker-ink);
+	--ion-font-family: var(--tracker-font-body);
+	--ion-color-primary: var(--tracker-green-700);
+	--ion-color-primary-rgb: 75, 155, 114;
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-success: var(--tracker-green-700);
+	--ion-color-success-rgb: 75, 155, 114;
+	--ion-color-success-contrast: #ffffff;
+}
+
+ion-button {
+	--border-radius: 10px;
+	--box-shadow: 0 6px 14px rgba(75, 155, 114, .16);
+	font-weight: 700;
+	letter-spacing: .01em;
+}
