@@ -12,9 +12,7 @@
     </div>
     <p v-if="assignment.notes" class="assignment-card__notes"><strong>Notes:</strong> {{ assignment.notes }}</p>
     <div class="assignment-card__actions">
-      <ion-button fill="outline" size="small" @click="$emit('toggle-status', assignment.id)">
-        {{ assignment.status === 'Completed' ? 'Reopen' : 'Mark complete' }}
-      </ion-button>
+      <ion-button fill="outline" size="small" @click="$emit('toggle-status', assignment.id)">{{ actionLabel }}</ion-button>
       <ion-button fill="clear" color="danger" size="small" @click="$emit('remove', assignment.id)">Remove</ion-button>
     </div>
   </article>
@@ -24,10 +22,17 @@
 import { computed } from 'vue';
 import { IonBadge, IonButton } from '@ionic/vue';
 import type { Assignment } from '@/types/assignment';
+import { getNextStatus } from '@/services/assignmentService';
 
 const props = defineProps<{ assignment: Assignment }>();
 defineEmits<{ 'toggle-status': [id: string]; remove: [id: string] }>();
 const statusColor = computed(() => props.assignment.status === 'Completed' ? 'success' : props.assignment.status === 'In progress' ? 'warning' : 'medium');
+const actionLabel = computed(() => {
+  const next = getNextStatus(props.assignment.status);
+  if (next === 'Completed') return 'Mark complete';
+  if (next === 'Not started') return 'Reopen';
+  return 'Move to In progress';
+});
 </script>
 
 <style scoped>

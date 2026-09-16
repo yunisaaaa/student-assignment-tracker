@@ -46,7 +46,6 @@ function submitAssignment() {
   form.subject = '';
   form.title = '';
   form.deadline = '';
-  form.status = 'Not started';
   form.notes = '';
 }
 </script>

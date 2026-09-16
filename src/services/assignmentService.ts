@@ -39,9 +39,14 @@ export function addAssignment(data: AssignmentData) {
   return push(assignmentsRef(), data);
 }
 
+export function getNextStatus(status: Assignment['status']): Assignment['status'] {
+  const order: Assignment['status'][] = ['Not started', 'In progress', 'Completed'];
+  const index = order.indexOf(status);
+  return order[(index + 1) % order.length];
+}
+
 export function toggleAssignmentStatus(id: string, currentStatus: Assignment['status']) {
-  const newStatus = currentStatus === 'Completed' ? 'Not started' : 'Completed';
-  return update(dbRef(db, `${ASSIGNMENTS_PATH}/${id}`), { status: newStatus });
+  return update(dbRef(db, `${ASSIGNMENTS_PATH}/${id}`), { status: getNextStatus(currentStatus) });
 }
 
 export function deleteAssignment(id: string) {
